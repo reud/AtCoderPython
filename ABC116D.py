@@ -20,7 +20,7 @@ N,K=map(int,input().split())
 
 sushi_list=[Sushi(input()) for _ in range(N)]
 
-sushi_list=sorted(sushi_list,key= lambda  x:x.oishisa)
+sushi_list.sort(key= lambda  x:x.oishisa)
 
 eat_list=[]
 
@@ -29,7 +29,7 @@ neta_max=len(list(collections.Counter([i.neta for i in sushi_list]).items()))
 
 for i in range(K):
     eat_list.append(sushi_list.pop())
-    print(eat_list[i])
+    #print(eat_list[i])
 
 eat_items=list(collections.Counter([i.neta for i in eat_list]).items())
 
@@ -44,11 +44,12 @@ for i in range(N):
     # 寿司が全て独立しているか判断する。
     # 独立してたら終了させる。
     # 寿司屋のネタの最大種類==選択したネタが最大種類でも終了
-    eat_list=sorted(eat_list,key=lambda x:x.oishisa)
-    print ( '現在の寿司' )
+    eat_list.sort(key=lambda x:x.oishisa)
+    #print ( '現在の寿司' )
     for i in eat_list:
-        print(i)
-    print('\n')
+        #print(i)
+        pass
+    #print('\n')
 
     if len(list(collections.Counter([i.neta for i in eat_list]).items()))==K and maxscore<=score_out(eat_list):
         print(score_out(eat_list))
@@ -59,18 +60,20 @@ for i in range(N):
 
     eat_items = list ( collections.Counter ( [ i.neta for i in eat_list ] ).items ( ) )
     neta_kaburi_list=[i[0] for i in eat_items if i[1]>1]
-    print(neta_kaburi_list)
+    #print(neta_kaburi_list)
     min_oishisa=-1
     kick_avails=[]
     for kaburi_neta in neta_kaburi_list:
         kick_avails+=[i for i in eat_list if i.neta==kaburi_neta]
-    kick_avails=sorted(kick_avails,key=lambda x:x.oishisa)
+    kick_avails.sort(key=lambda x:x.oishisa,reverse=True)
     if not kick_avails:
         print(maxscore)
         exit(0)
     kick=kick_avails.pop()
+    #print('kick as')
+    #print(kick)
     eat_list.remove(kick)
-    sushi_list=sorted(sushi_list,key= lambda x:x.oishisa)
+    sushi_list.sort(key= lambda x:x.oishisa)
     ef=True
     neta_list = [ i[ 0 ] for i in eat_items ]
 
@@ -80,10 +83,10 @@ for i in range(N):
 
 
     while ef:
-        eat_list = sorted ( eat_list, key=lambda x: x.oishisa,reverse=True)
+        eat_list.sort( key=lambda x: x.oishisa,reverse=True)
         sushi=sushi_list.pop()
-        print('poped sushi is ')
-        print(sushi)
+        #print('poped sushi is ')
+        #print(sushi)
         if sushi.neta in neta_list:
             pass
         else:
