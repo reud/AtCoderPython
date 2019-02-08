@@ -1,0 +1,1 @@
+print('Yes' if (lambda x=input().split():True if int(x[0])<=int(x[2]) and int(x[2])<=int(x[1]) else False)() else 'No')
