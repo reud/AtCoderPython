@@ -1,0 +1,1 @@
+print('Yes' if (lambda x=input().split(): True if x[0]<=x[2] and x[2]<=x[1] else False)() else 'No')

@@ -1,0 +1,1 @@
+print((lambda lines=input().split(): lines[0][0].upper()+lines[1][0].upper()+lines[2][0].upper())())
