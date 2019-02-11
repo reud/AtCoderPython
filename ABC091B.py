@@ -1,11 +1,16 @@
-import collections
-N=int(input())
-S=[int(input()) for _ in range(N)]
-M=int(input())
-T=[int(input()) for _ in range(N)]
+N = int(input())
+S = [input() for _ in range(N)]
+M = int(input())
+T = [input() for _ in range(M)]
+scorelists = []
+for key in S:
+    score = 0
+    for tmp in S:
+        if key == tmp:
+            score += 1
+    for tmp in T:
+        if key == tmp:
+            score -= 1
+    scorelists.append(score)
 
-S_col=collections.Counter(S)
-T_col=collections.Counter(T)
-S_item=S_col.items()
-T_item=T_col.items()
-
+print(max(scorelists) if max(scorelists) > 0 else 0)
