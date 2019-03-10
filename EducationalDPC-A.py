@@ -1,34 +1,10 @@
-from scipy.sparse import csr_matrix
-from scipy.sparse.csgraph import dijkstra
-import numpy as np
-import sys
-sys.setrecursionlimit(1000000000)
-node_num = int(input())
-nodes=input().split()
+N = int(input())
+H = [0] + [int(h) for h in input().split()]
+dp = [999999999 for _ in range(N + 1)]
+dp[0] = 0
+dp[1] = 0
+dp[2] = abs(H[2] - H[1])
+for i in range(3, N + 1):
+    dp[i] = min(dp[i], dp[i - 1] + abs(H[i - 1] - H[i]), dp[i - 2] + abs(H[i - 2] - H[i]))
 
-
-
-
-route_list=np.zeros((node_num,node_num))
-
-
-mi_count=0
-
-
-#コスト0と経路なしの区別としてコスト0の時はコスト　0.000000001　とする。
-#出力時にintにすることで少数を削除している。
-for i in range(node_num-1):
-    if i+2<node_num:
-        route_list[i][i+1]=abs(int(nodes[i+1])-int(nodes[i])) if abs(int(nodes[i+1])-int(nodes[i])) != 0 else 0.000000001
-        route_list[i][i+2]=abs(int(nodes[i+2])-int(nodes[i])) if abs(int(nodes[i+2])-int(nodes[i])) != 0 else 0.000000001
-    else:
-        route_list[i][i+1]=abs(int(nodes[i+1])-int(nodes[i])) if abs(int(nodes[i+1])-int(nodes[i])) != 0 else 0.000000001
-
-
-route_list = csr_matrix(route_list)
-#print(route_list)
-dist_matrix= dijkstra(csgraph=route_list, directed=False, indices=0, return_predecessors=False)
-
-dis=dist_matrix[-1]
-
-print(int(dis))
+print(dp[N])
