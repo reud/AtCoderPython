@@ -1,17 +1,29 @@
+import bisect
 N = int(input())
-l = [int(input()) for _ in range(N)]
-dp = [0] * N
-dp[0] = 1
+Cs = [int(input()) for _ in range(N)]
+dp = [1] * N
 
+def insertion_sort(tl):
+    for i in range(1,len(tl)):
+        if tl[i-1]<tl[i]:
+            tmp = tl[i-1]
+            tl[i-1] = tl[i]
+            tl[i] = tmp
+            return
+
+sch_cs = [Cs[0]]
+sch_dp = [dp[0]]
+# (val, dp)
 for i in range(1, N):
-
-    zouka = True
+    ind = bisect.bisect_left(sch_dp,dp[i])
+    # print(ind)
+    # dp値 降順
     for j in range(i):
-        if l[j] > l[i]:
-            dp[i] = dp[j - 1] + 1
-            zouka = False
+        if sch_cs[j]<Cs[i]:
+            dp[i]=sch_dp[j]+1
             break
-    if zouka:
-        dp[i] = dp[i - 1] + 1
-
+    sch_cs.insert(ind,Cs[i])
+    sch_dp.insert(ind,dp[i])
+# print(dp)
 print(N-max(dp))
+
